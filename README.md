@@ -7,12 +7,24 @@
 
 ## インストール
 
+### Homebrew
+
+```sh
+brew install isshi-hasegawa/tap/right-drag-scroll
+brew services start right-drag-scroll
+```
+
+初回だけ「システム設定 → プライバシーとセキュリティ → アクセシビリティ」に
+`/opt/homebrew/opt/right-drag-scroll/RightDragScroll.app` を追加してオンにする。
+
+### ソースから
+
 ```sh
 ./install.sh
 ```
 
 `~/Applications/RightDragScroll.app` を作り、ログイン時に自動起動するよう登録する。
-初回だけ「システム設定 → プライバシーとセキュリティ → アクセシビリティ」で RightDragScroll をオンにする。
+初回だけ同じくアクセシビリティで RightDragScroll をオンにする。
 
 ## 設定
 
@@ -23,8 +35,8 @@ defaults write io.github.isshi-hasegawa.RightDragScroll scrollMultiplier -float 
 # 初期値に戻す
 defaults delete io.github.isshi-hasegawa.RightDragScroll scrollMultiplier
 
-# 今の設定を表示
-~/Applications/RightDragScroll.app/Contents/MacOS/RightDragScroll --show-settings
+# 今の設定を表示（Homebrew 版）
+right-drag-scroll --show-settings
 ```
 
 設定は右ボタンを押すたびに読み直すので、再起動は不要。
@@ -32,5 +44,14 @@ defaults delete io.github.isshi-hasegawa.RightDragScroll scrollMultiplier
 ## アンインストール
 
 ```sh
+# Homebrew
+brew services stop right-drag-scroll
+brew uninstall right-drag-scroll
+
+# ソースから入れた場合
 ./uninstall.sh
 ```
+
+## ライセンス
+
+MIT

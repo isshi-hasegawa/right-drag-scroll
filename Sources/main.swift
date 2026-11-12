@@ -6,10 +6,10 @@ import Cocoa
 let syntheticMark: Int64 = 0x52445343 // 自分で送ったクリックを見分ける印
 
 // 設定は defaults で変更できる（右ボタンを押すたびに読み直す）
-//   defaults write local.rightdragscroll scrollMultiplier -float -4
+//   defaults write io.github.isshi-hasegawa.RightDragScroll scrollMultiplier -float -4
 // マイナスで init.lua と同じ向き、プラスで逆向き。絶対値が大きいほど速い。
 let defaultScrollMult: Double = -4    // init.lua の scrollmult と同じ
-let appID = "local.rightdragscroll" as CFString
+let appID = "io.github.isshi-hasegawa.RightDragScroll" as CFString
 var scrollMult = defaultScrollMult
 
 func reloadSettings() {

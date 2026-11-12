@@ -18,10 +18,10 @@
 
 ```sh
 # スクロールの速さと向き（初期値 -4。マイナスで従来の向き、プラスで逆向き）
-defaults write local.rightdragscroll scrollMultiplier -float -6
+defaults write io.github.isshi-hasegawa.RightDragScroll scrollMultiplier -float -6
 
 # 初期値に戻す
-defaults delete local.rightdragscroll scrollMultiplier
+defaults delete io.github.isshi-hasegawa.RightDragScroll scrollMultiplier
 
 # 今の設定を表示
 ~/Applications/RightDragScroll.app/Contents/MacOS/RightDragScroll --show-settings

@@ -4,7 +4,7 @@ set -euo pipefail
 
 cd "${0:A:h}"
 APP="$HOME/Applications/RightDragScroll.app"
-BUNDLE_ID="local.rightdragscroll"
+BUNDLE_ID="io.github.isshi-hasegawa.RightDragScroll"
 LABEL="$BUNDLE_ID"
 PLIST="$HOME/Library/LaunchAgents/$LABEL.plist"
 

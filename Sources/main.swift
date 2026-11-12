@@ -3,8 +3,24 @@
 // - 動かさずに離す → 普通の右クリック
 import Cocoa
 
-let scrollMult: Double = -4          // init.lua の scrollmult と同じ
 let syntheticMark: Int64 = 0x52445343 // 自分で送ったクリックを見分ける印
+
+// 設定は defaults で変更できる（右ボタンを押すたびに読み直す）
+//   defaults write local.rightdragscroll scrollMultiplier -float -4
+// マイナスで init.lua と同じ向き、プラスで逆向き。絶対値が大きいほど速い。
+let defaultScrollMult: Double = -4    // init.lua の scrollmult と同じ
+let appID = "local.rightdragscroll" as CFString
+var scrollMult = defaultScrollMult
+
+func reloadSettings() {
+    CFPreferencesAppSynchronize(appID)
+    if let v = CFPreferencesCopyAppValue("scrollMultiplier" as CFString, appID) as? NSNumber,
+       v.doubleValue != 0 {
+        scrollMult = v.doubleValue
+    } else {
+        scrollMult = defaultScrollMult
+    }
+}
 
 var deferred = false
 var tap: CFMachPort?
@@ -43,6 +59,7 @@ let callback: CGEventTapCallBack = { _, type, event, _ in
     case .rightMouseDown:
         deferred = true
         downPos = event.location
+        reloadSettings()
         CGAssociateMouseAndMouseCursorPosition(0)    // 押している間カーソルを止める
         return nil                                   // いったん止める
 
@@ -70,6 +87,13 @@ let callback: CGEventTapCallBack = { _, type, event, _ in
     default:
         return Unmanaged.passUnretained(event)
     }
+}
+
+// 今の設定を表示して終わる
+if CommandLine.arguments.contains("--show-settings") {
+    reloadSettings()
+    print("scrollMultiplier = \(scrollMult)")
+    exit(0)
 }
 
 // アクセシビリティ許可の確認（無ければ許可ダイアログを出す）
